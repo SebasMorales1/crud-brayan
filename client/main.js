@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const $loading = document.getElementById('loading')
   const $btnSubmit = document.getElementById('btn-submit')
   const $todos = document.getElementById('todos')
+  let editing = false
+  let todoId = null
   
   function loading(isLoading) {
     if (isLoading){
@@ -52,6 +54,15 @@ document.addEventListener('DOMContentLoaded', () => {
       btnDelete.textContent = 'Delete'
 
       btnDelete.addEventListener('click', () => deleteTodo(todo._id))
+      btnEdit.addEventListener('click', () => {
+        $form.children.name.value = todo.name
+        $form.children.description.value = todo.description
+
+        editing = true
+        $btnSubmit.textContent = "Edit Todo"
+        $btnSubmit.classList.add('edit')
+        todoId = todo._id
+      })
 
       li.classList.add('todo')
       divBtns.classList.add('btns')
@@ -82,15 +93,34 @@ document.addEventListener('DOMContentLoaded', () => {
       description: event.target.description.value
     }
 
-    await fetchApi(url, { 
-      method: 'POST', 
-      data, 
-      loading: (isLoading) => {
-        loading(isLoading)
-        renderTodos()
-      }
-    })
+    if (!editing)
+      await fetchApi(url, { 
+        method: 'POST', 
+        data, 
+        loading: (isLoading) => {
+          loading(isLoading)
+          renderTodos()
+        }
+      })
+    else {
+      await fetchApi(`${url}${todoId}`, {
+        method: 'PUT',
+        data,
+        loading: (isLoading) => {
+          loading(isLoading)
+          renderTodos()
+        }
+      })
+
+      editing = false
+      todoId = null
+      
+      $btnSubmit.textContent = "Create new Todo"
+      $btnSubmit.classList.remove('edit')
+    }
     
+    event.target.name.value = ''
+    event.target.description.value = ''
   })
 
   renderTodos()

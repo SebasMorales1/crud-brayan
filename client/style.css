@@ -121,6 +121,14 @@ body {
   background-color: rgb(164, 28, 28);
 }
 
+.edit {
+  background-color: rgb(39, 113, 217) !important;
+}
+
+.edit:hover {
+  background-color: rgb(28, 83, 160) !important;
+}
+
 @media (min-width: 768px) {
   .container {
     width: 80%;
