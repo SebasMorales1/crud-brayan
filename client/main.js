@@ -24,6 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
   async function renderTodos() {
     const { docs } = await fetchApi(url, {loading})
     
+    while ($todos.children.length > 0)
+      $todos.lastChild.remove()
+
     docs.map(todo => {
       const li = document.createElement('li')
       const h3 = document.createElement('h3')
@@ -53,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // controlamos el evento submit del formulario para crear un Todo
-  $form.addEventListener('submit', (event) => {
+  $form.addEventListener('submit', async (event) => {
     event.preventDefault()
     
     /* 
@@ -62,10 +65,20 @@ document.addEventListener('DOMContentLoaded', () => {
       al campo.
     */
 
-    /* const data = {
+    const data = {
       name: event.target.name.value,
       description: event.target.description.value
-    } */
+    }
+
+    await fetchApi(url, { 
+      method: 'POST', 
+      data, 
+      loading: (isLoading) => {
+        loading(isLoading)
+        renderTodos()
+      }
+    })
+    
   })
 
   renderTodos()
