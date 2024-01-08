@@ -9,8 +9,8 @@
 <body>
   <main class="container">
     <form id="form">
-      <input type="text" name="name" placeholder="Write Todo name">
-      <textarea name="description" cols="30" rows="10" placeholder="Write Todo description"></textarea>
+      <input type="text" name="name" required placeholder="Write Todo name">
+      <textarea name="description" cols="30" rows="10" placeholder="Write Todo description" required></textarea>
       <button type="submit" id="btn-submit">
         Create new Todo
       </button>
@@ -18,7 +18,11 @@
 
     <section class="todos-container">
       <h1>List Todos</h1>
+      <ul id="todos"></ul>
+      <div id="loading">...Loading</div>
     </section>
   </main>
+
+  <script type="module" src="main.js"></script>
 </body>
 </html>

@@ -45,15 +45,79 @@ body {
   width: fit-content;
 }
 
+#form #btn-submit:hover {
+  background-color: rgb(10, 196, 88);
+}
+
+#form #btn-submit:disabled {
+  background-color: gray;
+  color: rgb(93, 93, 93);
+}
+
 .todos-container {
   height: 95vh;
   border: 1px solid #8f8f9d;
   padding: 8px;
+  position: relative;
 }
 
 .todos-container h1 {
   font-weight: 600;
   text-align: center;
+  margin-bottom: 25px;
+}
+
+#loading {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  padding: 8px 16px;
+  background-color: #8f8f9db3;
+}
+
+#todos {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-height: 100%;
+}
+
+.todo {
+  list-style: none;
+  border: 1px solid #8f8f9d;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.todo p {
+  color: #818181;
+}
+
+.btns {
+  display: flex;
+  gap: 7px;
+}
+
+.btns button {
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  background-color: rgb(39, 113, 217);
+  cursor: pointer;
+}
+
+.btns button:hover {
+  background-color: rgb(28, 83, 160);
+}
+
+.btns button:nth-child(2) {
+  background-color: rgb(217, 39, 39);
+}
+
+.btns button:nth-child(2):hover {
+  background-color: rgb(164, 28, 28);
 }
 
 @media (min-width: 768px) {
