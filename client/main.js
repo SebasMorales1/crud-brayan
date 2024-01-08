@@ -21,6 +21,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  async function deleteTodo(id) {
+    await fetchApi(`${url}${id}`, { 
+      method: 'DELETE',
+      loading: (isLoading) => {
+        loading(isLoading)
+        renderTodos()
+      }
+    })
+  }
+
   async function renderTodos() {
     const { docs } = await fetchApi(url, {loading})
     
@@ -40,6 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
       p.textContent = todo.description
       btnEdit.textContent = 'Edit'
       btnDelete.textContent = 'Delete'
+
+      btnDelete.addEventListener('click', () => deleteTodo(todo._id))
 
       li.classList.add('todo')
       divBtns.classList.add('btns')
